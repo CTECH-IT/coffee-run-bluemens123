@@ -17,6 +17,7 @@
 
     FormHandler.prototype.addSubmitHandler = function (func) {
         console.log('Setting the submit handler for the form...'); 
+    
 
         this.$formElement.on('submit', function(event) {
             event.preventDefault(); 
@@ -33,6 +34,19 @@
             this.elements[0].focus(); // focus on field with index 0
         }); 
     }
+
+    FormHandler.prototype.addInputHandler = function (func) {
+        console.log('Setting input handler for form'); 
+        this.$formElement.on('input', '[name="emailAddress"]', function (event) {
+            //event code
+            let emailAddress = event.target.value; 
+            if(func(emailAddress) == true) {
+                event.target.setCustomValidity('');
+            } else {
+                event.target.setCustomValidity(emailAddress + ' is not an authorized email address!');
+            }
+        }); 
+    }; 
 
     App.FormHandler = FormHandler; 
     window.App = App; 
